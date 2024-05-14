@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "qlhd.apps.QlhdConfig",
+    "qlhd",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -83,9 +83,10 @@ DATABASES = {
 
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        'NAME': 'QLHD',
+        'NAME': 'qlhd_db',
         'USER': 'root',
         'PASSWORD': '',
+        'PORT': '3308',
         # 'HOST': 'localhost',
         # 'HOST': '/Applications/XAMPP/var/mysql/mysql.sock',
         'HOST': '127.0.0.1'
