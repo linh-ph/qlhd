@@ -1,7 +1,7 @@
 # Quản lý hóa đơn
 Đồ án môn học Python
 # Run source
-Thay đôỉ port trong file du_an/settings.py
+Thay đôỉ port DATABASES trong file du_an/settings.py
 
 Tạo database name là: qlhd_db
 ```bash
