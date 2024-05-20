@@ -5,7 +5,7 @@ tinhphamtrung
 
 Install Virtual Environment 
 ```
-$  pip install virtualenv
+$  pip3 install virtualenv
 ```
 
 Create Virtual Environment
@@ -26,7 +26,7 @@ source venv/bin/activate
 ```
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ```python

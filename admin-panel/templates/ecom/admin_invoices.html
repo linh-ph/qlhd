@@ -20,49 +20,65 @@
     .row {
       margin: 100px;
     }
+
+    .float{
+	position:fixed;
+	width:70px;
+	height:70px;
+	bottom:60px;
+	right:60px;
+	background-color:#3eb54d;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 5px 5px 5px #505050;
+}
+
+.my-float{
+	margin-top:22px;
+}
   </style>
 </head>
+
 <div class="container">
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h6 class="panel-title">Total Orders</h6>
+      <h6 class="panel-title">Total Invoices</h6>
     </div>
     <table class="table table-hover table-bordered" id="dev-table">
       <thead>
         <tr>
-          <th>Customer</th>
-          <th>Contact</th>
-          <th>Shipping Address</th>
-          <th>Product</th>
-          <th>Image</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Tax_Code</th>
+          <th>Phone</th>
         </tr>
       </thead>
 
-      {% for product,customer,order in data %}
-      <tr>
-        {% for c in customer %}
-        <td> {{c.get_name}}</td>
-        <td>{{c.mobile}}</td>
-        <td>{{order.address}}</td>
 
-        {% endfor %}
-        {% for p in product %}
+      {% for p in invoices %}
+  {% if p %}
+
+      <tr>
         <td> {{p.name}}</td>
         <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-        <td>{{order.status}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update-order' order.id  %}"><span class="glyphicon glyphicon-edit"></span></a>
-        <a class="btn btn-danger btn-xs" href="{% url 'delete-order' order.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-
-        {% endfor %}
-
-
+        <td>{{p.price}}</td>
+        <td>{{p.description}}</td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-product' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a>
+          <a class="btn btn-danger btn-xs" href="{% url 'delete-product' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
 
       </tr>
+      {%else%}
+      <br><br><br>
+      <h1>No Invoices!!</h1>
+      {% endif %}
       {% endfor %}
     </table>
   </div>
 </div>
 
+<a href="/admin-add-invoice" class="float">
+<i class="fa fa-plus my-float"></i>
+</a>
 {% endblock content %}
