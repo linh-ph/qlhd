@@ -21,7 +21,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin", admin.site.urls),
-    path("hoa-don", include("qlhd.urls")),
+    path("api_2", include("qlhd.urls")),
+    path('', include('home.urls')),
+    path('api/', include('api.urls')),
+    path('axis/', include('axis.urls')),
 ]
 
 if settings.DEBUG:

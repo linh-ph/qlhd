@@ -1,0 +1,15 @@
+{% load static %}
+<div class="col-md-8" style="background-color:#eee;min-height:100vh !important;overflow: scroll !important;">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-2" style="position:relative;top:0px;left:0;">
+            <canvas id="myCanvasUpper" style="border:1px solid red;position: absolute; top:0px;left:0px;z-index: 100;opacity:0.5;">
+            </canvas>
+            <canvas id="myCanvasLower" style="border:1px solid green;position: absolute; z-index: 99;top:0px;left:0px">
+            </canvas>
+             <canvas id="myCanvasShortest" style="border:1px solid blue;position: absolute; z-index: 98;top:0px;left:0px">
+            </canvas>
+        </div>
+    <img id="request" width="0" height="0" src="{% static 'resources/zing.png' %}" alt="The Scream"
+         style="display:none">
+    </div>
+</div>
