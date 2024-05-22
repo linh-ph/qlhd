@@ -209,10 +209,6 @@ def update_order_view(request,pk):
     return render(request,'ecom/update_order.html',{'orderForm':orderForm})
 
 
-@login_required(login_url='adminlogin')
-def view_feedback_view(request):
-    feedbacks=models.Feedback.objects.all().order_by('-id')
-    return render(request,'ecom/view_feedback.html',{'feedbacks':feedbacks})
 
 
 
@@ -316,14 +312,6 @@ def remove_from_cart_view(request,pk):
         return response
 
 
-def send_feedback_view(request):
-    feedbackForm=forms.FeedbackForm()
-    if request.method == 'POST':
-        feedbackForm = forms.FeedbackForm(request.POST)
-        if feedbackForm.is_valid():
-            feedbackForm.save()
-            return render(request, 'ecom/feedback_sent.html')
-    return render(request, 'ecom/send_feedback.html', {'feedbackForm':feedbackForm})
 
 
 
@@ -448,7 +436,7 @@ def render_to_pdf(template_src, context_dict):
     template = get_template(template_src)
     html  = template.render(context_dict)
     result = io.BytesIO()
-    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("UTF-8")), result, encoding='UTF-8')
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return

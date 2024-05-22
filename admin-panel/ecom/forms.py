@@ -30,10 +30,6 @@ class AddressForm(forms.Form):
     Mobile= forms.IntegerField()
     Address = forms.CharField(max_length=500)
 
-class FeedbackForm(forms.ModelForm):
-    class Meta:
-        model=models.Feedback
-        fields=['name','feedback']
 
 class OrderForm(forms.ModelForm):
     class Meta:
