@@ -20,11 +20,16 @@ def resize(img_origin):
 # lấy tọa độ trong mask
 def get_coordinates_mask(template_mask):
     template_mask_gray = cv2.cvtColor(template_mask, cv2.COLOR_BGR2GRAY)
+    # chuyển đổi hình ảnh xám thành hình ảnh nhị phân,
+    # trong đó các pixel có giá trị lớn được đặt thành màu trắng (255)
+    # và các pixel có giá trị nhỏ được đặt thành màu đen (0)
     template_thresh = cv2.threshold(template_mask_gray, 255, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    # tìm các đường viền trong ảnh nhị phân
     contours = cv2.findContours(template_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
     cnts = sort_contours(contours, method="top-to-bottom")[0]
     roi_info = []
     for i, c in enumerate(cnts):
+        #(x, y, width, height) tọa độ của hình chữ nhật bao quanh đối tượng
         x, y, w, h = cv2.boundingRect(c)
         roi_info.append([x, y, w, h])
     return roi_info
@@ -32,8 +37,9 @@ def get_coordinates_mask(template_mask):
 
 # lấy màu theo hsv
 def get_mask_area_color_hsv(img_origin, hue_lower=0, hue_upper=255):
-    # check image gray
+    # check image gray, tuple shape chứa số lượng hàng, cột
     if len(img_origin.shape) > 2:
+        #Chuyển đổi hình ảnh từ màu BGR sang Xám.
         gray = cv2.cvtColor(img_origin, cv2.COLOR_BGR2GRAY)
     else:
         gray = img_origin

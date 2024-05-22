@@ -16,7 +16,7 @@ def detected_ocr_upload_web(request):
     if request.method == 'POST':
         try:
             try:
-                data['id_session'] = request.POST.get('id_session')
+                # data['id_session'] = request.POST.get('id_session')
                 data['url'] = request.POST.get('url')
             except:
                 context["message"] = "Không tồn tại id_folder và url"
@@ -27,6 +27,7 @@ def detected_ocr_upload_web(request):
                 context['message'] = "ảnh không tồn tại"
                 return JsonResponse(context, status=200)
 
+            print("read", read)
             # Start Handle
             hm = home(data, context, read, t_1)
             if hm['error']:

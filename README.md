@@ -10,7 +10,7 @@ python manage.py makemigrations
 ```
 ```bash
 # chạy migration cho db
-python manage.py migration
+python manage.py migrate
 ```
 ```bash
 # run server

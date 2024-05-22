@@ -20,25 +20,29 @@ from api.src.components.serializers.product_serializer import set_to_database_pr
 
 
 def home(data, context, image, time_start):
-    try:
+    # try:
         # Resize ảnh về 2500x3000
         res = get_resize_image(image)
         if res['error']:
             return res
         data['time_resize'] = get_time("Time Size resize:", time_start)
 
+        # print("res", res['image'])
         # Phát hiện tờ giấy trắng
         pager = get_pager(res['image'])
         if pager['error']:
             return context
         data['time_pager'] = get_time("Time Size pager:", time_start)
 
-        # # Lấy lấy khung chứa nội dung
+        # print("pager", pager['image'])
+
+        # Lấy khung chứa nội dung
         container = get_container(pager['image'])
         if container['error']:
             return container
         data['timer_container'] = get_time("Time Size container:", time_start)
 
+        # print("container", container['image'])
         #
         # # Thực hiện xoay xoay về đúng định dạng
         transform = get_container_transform(container['image'])
@@ -46,12 +50,15 @@ def home(data, context, image, time_start):
             return transform
         data['timer_transform'] = get_time("Time Transform:", time_start)
 
+        print("transform", transform)
+        print("datadata", data)
         #
         # # Phát hiện loại mẫu(mask)
         number_template = get_detect_template(data['url'])
         if number_template == 0:
             return context
         data['timer_template'] = get_time("Time Size number template:", time_start)
+        print("number_template", number_template)
         #
         # # Thực hiện lấy tọa độ trong mẫu(mask 1): gồm các nội dung không nằm trong table
         coordinates_info = get_coordinate_info(number_template)
@@ -65,36 +72,44 @@ def home(data, context, image, time_start):
             return coordinates_table
         data['timer_coordinates_table'] = get_time("Time Size coordinate_table:", time_start)
 
+        print("coordinates_table", coordinates_table)
         # Create Que
-        que1 = Queue()
-        que2 = Queue()
+        # que1 = Queue()
+        # que2 = Queue()
         # Lấy nội dung
-        thread_text_info = Thread(target=lambda q, arg1, arg2: q.put(get_text_info(arg1, arg2)),
-                                  args=(que1, transform['image'], coordinates_info['roi_info']))
-
+        # thread_text_info = Thread(target=lambda q, arg1, arg2: q.put(get_text_info(arg1, arg2)),
+        #                           args=(que1, transform['image'], coordinates_info['roi_info']))
+        info = get_text_info(transform['image'], coordinates_info['roi_info'])
+        print("thread_text_info", info)
         # # Thực hiện lấy thông tin trong bảng
-        thread_text_table = Thread(target=lambda q, arg1, arg2: q.put(get_text_table(arg1, arg2)),
-                                   args=(que2, transform['image'], coordinates_table['roi_info']))
+        # thread_text_table = Thread(target=lambda q, arg1, arg2: q.put(get_text_table(arg1, arg2)),
+        #                            args=(que2, transform['image'], coordinates_table['roi_info']))
+        table = get_text_table(transform['image'], coordinates_table['roi_info'])
+        print("thread_text_table", table)
 
-        thread_text_info.start()
-        thread_text_table.start()
-
-        thread_text_info.join()
-        thread_text_table.join()
+        # thread_text_info.start()
+        # thread_text_table.start()
+        # thread_text_info.join()
+        # thread_text_table.join()
 
         # Gộp thông tin lại
-        data['form_json'] = {'info': que1.get(), 'table': que2.get()}
+        data['form_json'] = {'info': info, 'table': table}
+        print("---data['form_json']", data)
         # Lấy url ảnh ngẫu nhiên.
         now = datetime.datetime.now()
-        data["url_result"] = "media/" + data['id_session'] + "/" + str(now) + "_form.jpg"
+        data["url_result"] = "media/" + "/" + str(now) + "_form.jpg"
         # Thêm vào database
-        data['id_late'] = set_to_database_distributor(data['id_session'], data['url'], data['form_json']['info'], data["url_result"])
-        data['num_product'] = set_to_database_product(data['form_json']['table'], data['id_late'])
-        data['timer_final'] = get_time("Time Size thread final:", time_start)
+        print("Thêm vào database")
 
+        data['id_late'] = set_to_database_distributor(data['url'], data['form_json']['info'], data["url_result"])
+        # data['num_product'] = set_to_database_product(data['form_json']['table'], data['id_late'])
+        # data['timer_final'] = get_time("Time Size thread final:", time_start)
 
+        print("datadatadatadata111", data)
+
+        #save file image for database
         cv2.imwrite(data["url_result"], transform['image'])
-        data['timer_create_session'] = get_time("Time Size session:", time_start)
+        # data['timer_create_session'] = get_time("Time Size session:", time_start)
         return data
-    except:
-        return context
+    # except:
+    #     return context

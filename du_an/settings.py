@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,15 +28,14 @@ SECRET_KEY = "django-insecure-%3kr6++k2=@1ovxii(n#mxw+#7($4ts&zihe4ed0#e9n=u=kf+
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+IP_SITE = "http://127.0.0.1:8000"
 
 # Application definition
 
 INSTALLED_APPS = [
     "qlhd",
-    "home",
     "api",
-    "axis",
+    "ecom",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,29 +56,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "du_an.urls"
 
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = "du_an.wsgi.application"
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,17 +85,13 @@ DATABASES = {
 
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        # 'NAME': 'qlhd_db',
-        'NAME': 'QLHD',
+        'NAME': 'qlhd_db',
         'USER': 'root',
         'PASSWORD': '',
         'PORT': '3308',
-        # 'HOST': 'localhost',
-        # 'HOST': '/Applications/XAMPP/var/mysql/mysql.sock',
         'HOST': '127.0.0.1'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -131,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -143,13 +122,26 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+os.environ['TESSDATA_PREFIX'] = '/opt/homebrew/Cellar/tesseract/5.3.2_1/share/tessdata/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+LOGIN_REDIRECT_URL = '/afterlogin'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tinhphamtrung04@gmail.com'
+EMAIL_HOST_PASSWORD = 'Tinh@4299'
+
+EMAIL_RECEIVING_USER = ['tinhphamtrung00@gmail.com']

@@ -1,5 +1,4 @@
-from api.models import Product
-from qlhd.models import Distributor
+from qlhd.models import Distributor, Product
 
 
 def set_to_database_product(text_info_table, id_insert):

@@ -7,8 +7,10 @@ from api.src.configs import AREA_MIN, AREA_MAX, WIDTH_MIN, WIDTH_MAX
 
 def get_pager(img_origin):
     mask = get_mask_area_color_hsv(img_origin, 200, 255)
+    #Sử dụng thuật toán Canny để phát hiện cạnh trong hình ảnh mask.
     edges = cv2.Canny(mask, 1, 150, apertureSize=3)
     draw_line = draw_multiple_line_straight(mask, edges, 1, 10)
+    print("draw_line", draw_line)
     if draw_line['error']:
         return draw_line
 

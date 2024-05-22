@@ -5,11 +5,13 @@ from api.src.utils.transform_util import find_corner_by_rotated_rect, four_point
 from api.src.utils.pre_processing_util import resize
 from api.src.assets import TRANSFORM_TEMPLATE_PATH
 
+
 def get_container_transform(img_origin):
     try:
         template_mask = cv2.imread(TRANSFORM_TEMPLATE_PATH)
     except:
         return {'error': True, 'message': 'có lỗi khi upload transform_template'}
+
     gray = cv2.cvtColor(img_origin, cv2.COLOR_BGR2GRAY)
     template_mask = cv2.cvtColor(template_mask, cv2.COLOR_BGR2GRAY)
     mask = cv2.bitwise_and(gray, template_mask)
@@ -43,6 +45,6 @@ def get_container_transform(img_origin):
 
     if image is not None:
         img_resize = resize(image)
-        return {'error': False, 'message': 'get container stranform success', 'image': img_resize}
+        return {'error': False, 'message': 'get container transform success', 'image': img_resize}
     else:
         return {'error': True, 'message': 'Lỗi không thể container_transform'}

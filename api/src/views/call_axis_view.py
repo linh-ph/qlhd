@@ -6,7 +6,6 @@ import cv2
 from django.conf import settings
 import json
 from api.src.containers.axis import axis
-from api.models import Image, InfoImage
 from api.src.utils.io_util import write_csv_info_image
 
 
