@@ -27,7 +27,7 @@ class ProductForm(forms.ModelForm):
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = models.Invoice
-        fields = ['id', 'name', 'address', 'tax_code', 'phone']
+        fields = ['id', 'code_bill', 'date_invoice', 'total_money', 'total_tax', 'total', 'status', 'distributor']
 
 
 class AddressForm(forms.Form):
