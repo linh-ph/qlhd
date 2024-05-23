@@ -27,20 +27,13 @@ class ProductForm(forms.ModelForm):
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = models.Invoice
-        fields = ['code_bill', 'image_path', 'form_of_payment', 'date_invoice', 'total_money', 'total_tax', 'total',
-                  'status']
+        fields = ['id', 'name', 'address', 'tax_code', 'phone']
 
 
 class AddressForm(forms.Form):
     Email = forms.EmailField()
     Mobile = forms.IntegerField()
     Address = forms.CharField(max_length=500)
-
-
-class FeedbackForm(forms.ModelForm):
-    class Meta:
-        model = models.Feedback
-        fields = ['name', 'feedback']
 
 
 class OrderForm(forms.ModelForm):

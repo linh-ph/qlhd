@@ -1,14 +1,12 @@
-import io
-
-from django.shortcuts import render, redirect
-from . import forms, models
+from django.shortcuts import render, redirect, reverse
+from . import forms
 from qlhd import models
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.mail import send_mail
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from django.template.loader import get_template
-from django.http import HttpResponse
+from django.conf import settings
 
 
 def home_view(request):
@@ -61,9 +59,8 @@ def afterlogin_view(request):
         return redirect('admin-dashboard')
 
 
-# @login_required(login_url='adminlogin')
+@login_required(login_url='adminlogin')
 def admin_dashboard_view(request):
-    print("cccc")
     customercount = models.Customer.objects.all().count()
     productcount = models.Product.objects.all().count()
     ordercount = models.Orders.objects.all().count()
@@ -217,12 +214,6 @@ def update_order_view(request, pk):
     return render(request, 'ecom/update_order.html', {'orderForm': orderForm})
 
 
-@login_required(login_url='adminlogin')
-def view_feedback_view(request):
-    feedbacks = models.Feedback.objects.all().order_by('-id')
-    return render(request, 'ecom/view_feedback.html', {'feedbacks': feedbacks})
-
-
 def search_view(request):
     query = request.GET['query']
     products = models.Product.objects.all().filter(name__icontains=query)
@@ -326,16 +317,6 @@ def remove_from_cart_view(request, pk):
         return response
 
 
-def send_feedback_view(request):
-    feedbackForm = forms.FeedbackForm()
-    if request.method == 'POST':
-        feedbackForm = forms.FeedbackForm(request.POST)
-        if feedbackForm.is_valid():
-            feedbackForm.save()
-            return render(request, 'ecom/feedback_sent.html')
-    return render(request, 'ecom/send_feedback.html', {'feedbackForm': feedbackForm})
-
-
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def customer_home_view(request):
@@ -437,6 +418,45 @@ def my_order_view(request):
     return render(request, 'ecom/my_order.html', {'data': zip(ordered_products, orders)})
 
 
+import io
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
+
+
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("UTF-8")), result, encoding='UTF-8')
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return
+
+
+@login_required(login_url='customerlogin')
+@user_passes_test(is_customer)
+def download_invoice_view(request, orderID, productID):
+    order = models.Orders.objects.get(id=orderID)
+    product = models.Product.objects.get(id=productID)
+    mydict = {
+        'orderDate': order.order_date,
+        'customerName': request.user,
+        'customerEmail': order.email,
+        'customerMobile': order.mobile,
+        'shipmentAddress': order.address,
+        'orderStatus': order.status,
+
+        'productName': product.name,
+        'productImage': product.product_image,
+        'productPrice': product.price,
+        'productDescription': product.description,
+
+    }
+    return render_to_pdf('ecom/download_invoice.html', mydict)
+
+
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def my_profile_view(request):
@@ -462,3 +482,6 @@ def edit_profile_view(request):
             customerForm.save()
             return HttpResponseRedirect('my-profile')
     return render(request, 'ecom/edit_profile.html', context=mydict)
+
+
+
