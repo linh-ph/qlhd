@@ -1,5 +1,5 @@
 from django.contrib import admin
-from qlhd.models import Customer, Product, Orders, Feedback, OrdersDetail
+from qlhd.models import Customer, Product, Orders, OrdersDetail
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -23,13 +23,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Orders, OrderAdmin)
-
-
-class FeedbackAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(Feedback, FeedbackAdmin)
 
 
 class OrdersDetailAdmin(admin.ModelAdmin):
