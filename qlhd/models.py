@@ -65,8 +65,8 @@ class DetailInvoice(models.Model):
     name = models.CharField(max_length=100, null=True, default=None)
     unit = models.CharField(max_length=100, null=True, default=None)
     quantity = models.CharField(max_length=100, null=True, default=None)
-    price = models.CharField(max_length=100, null=True, default=None)
-    total_price = models.CharField(max_length=100, null=True, default=None)
+    price = models.PositiveIntegerField(null=True, default=None)
+    total_price = models.PositiveIntegerField(null=True, default=None)
     tax = models.CharField(max_length=100, null=True, default=None)
     tax_money = models.CharField(max_length=100, null=True, default=None)
     total = models.CharField(max_length=100, null=True, default=None)
@@ -81,12 +81,11 @@ class Product(models.Model):
     name = models.CharField(max_length=100, null=True, default=None)
     unit = models.CharField(max_length=100, null=True, default=None)
     type = models.CharField(max_length=100, null=True, default=None)
-    product_image = models.CharField(max_length=100, null=True, default=None)
-    price = models.CharField(max_length=100, null=True, default=None)
+    product_image = models.ImageField(upload_to='product_image/',null=True,blank=True)
+    price = models.PositiveIntegerField(null=True, default=None)
     description = models.CharField(max_length=100, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return str(self.id)
 
@@ -111,11 +110,12 @@ class Customer(models.Model):
 
 class Orders(models.Model):
     STATUS = (
-        ('Đang giao', 'Pending'),
+        ('Đang chờ', 'Pending'),
         ('Xác nhận đơn hàng', 'Order Confirmed'),
         ('Đang giao hàng', 'Delivering'),
         ('Đã giao hàng', 'Delivered'),
     )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     email = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=500, null=True)
@@ -127,7 +127,7 @@ class Orders(models.Model):
 class OrdersDetail(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    price = models.CharField(max_length=40, null=True)
+    price = models.PositiveIntegerField(null=True, default=None)
 
     def __str__(self):
         return self.name

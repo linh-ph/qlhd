@@ -21,13 +21,13 @@ class CustomerForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = models.Product
-        fields = ['name', 'price', 'description', 'product_image']
+        fields = ['name', 'price', 'description', 'product_image', 'unit', 'type']
 
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = models.Invoice
-        fields = ['id', 'name', 'address', 'tax_code', 'phone']
+        fields = ['id', 'code_bill', 'date_invoice', 'total_money', 'total_tax', 'total', 'status', 'distributor']
 
 
 class AddressForm(forms.Form):

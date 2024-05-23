@@ -86,12 +86,12 @@ background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
             <div class="card">
                 <form class="box" method="post">
                     {% csrf_token %}
-                    <h1>Admin Login</h1>
+                    <h1>Quản trị viên đăng nhập</h1>
                    
-                     {% render_field form.username class="form-control" placeholder="Username" autocomplete="off" %}
-                     {% render_field form.password class="form-control" placeholder="Password" %}
+                     {% render_field form.username class="form-control" placeholder="Tên đăng nhập" autocomplete="off" %}
+                     {% render_field form.password class="form-control" placeholder="Mật khẩu" %}
 
-                     <input type="submit" name="" value="Login">
+                     <input type="submit" name="" value="Đăng nhập">
 
                 </form>
             </div>
