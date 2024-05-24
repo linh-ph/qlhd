@@ -88,7 +88,7 @@
       </tr>
       {%else%}
       <br><br><br>
-      <h1>No Invoices!!</h1>
+      <h1>Không có hóa đơn!!</h1>
       {% endif %}
       {% endfor %}
     </table>
@@ -98,5 +98,5 @@
 <a href="/admin-add-invoice" class="float">
 <i class="fa fa-plus my-float"></i>
 </a>
-<a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">Scan Image</a>
+<a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">Scan hóa đơn</a>
 {% endblock content %}
