@@ -228,7 +228,7 @@ def search_view(request):
     else:
         product_count_in_cart = 0
 
-    word = "Searched Result :"
+    word = "Kết quả tìm kiếm :"
 
     if request.user.is_authenticated:
         return render(request, 'ecom/customer_home.html',
@@ -451,7 +451,6 @@ def download_invoice_view(request, orderID, productID):
         'customerMobile': order.mobile,
         'shipmentAddress': order.address,
         'orderStatus': order.status,
-
         'productName': product.name,
         'productImage': product.product_image,
         'productPrice': product.price,

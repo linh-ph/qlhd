@@ -176,7 +176,7 @@ p {
                       <div class="aside"><img src="{% static product.product_image.url %}" class="img-sm border"></div>
                       <figcaption class="info align-self-center">
 
-                          <p class="title"><strong>Tên sản phẩm : </strong>{{product.name}} <br> <strong>Mô tả : </strong>{{product.description}} <br> <strong>Giá : </strong>${{product.price}}</p> 
+                          <p class="title"><strong>Tên sản phẩm : </strong>{{product.name}} <br> <strong>Mô tả : </strong>{{product.description}} <br> <strong>Giá : </strong>{{product.price}}.000 VND</p> 
 
                       </figcaption>
 
@@ -188,11 +188,11 @@ p {
                 <li class="col-md-4">
                     <div class="col"> <strong>Trạng thái:</strong> <br>
                     
-                        {% if order.status == 'Đang chờ'%}
+                        {% if order.status == 'Pending'%}
                         <td> <span class="label label-info" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
-                        {% elif order.status == 'Đã giao' %}
+                        {% elif order.status == 'Delivered' %}
                         <td> <span class="label label-success" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
-                        {% elif order.status == 'Chưa giao được' %}
+                        {% elif order.status == 'Out for Delivery' %}
                         <td> <span class="label label-default" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
                         {%else%}
                           <td> <span class="label label-primary" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
@@ -200,7 +200,7 @@ p {
                     
                     
                     </div> <br>
-                    <h4><a style="text-decoration:none;" href="{% url 'download-invoice' order.id product.id  %}" ><button class="btn btn-danger btn-sm">Download Invoice</button></a></h4>
+                    <h4><a style="text-decoration:none;" href="{% url 'download-invoice' order.id product.id  %}" ><button class="btn btn-danger btn-sm">Xem hóa đơn</button></a></h4>
                 </li>
                 {%endfor%}
             </ul>
@@ -208,25 +208,25 @@ p {
 
             <div class="track">
                 {%if order.status == 'Pending' %}
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Đang chờ xác nhận</span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Đã xác nhận đơn hàng</span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Đã giao</span> </div>
                 {%elif order.status == 'Order Confirmed' %}
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Đang chờ xác nhận</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Đã xác nhận đơn hàng</span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Đã giao</span> </div>
                 {%elif order.status == 'Out for Delivery'%}
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Đang chờ xác nhận</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Đã xác nhận đơn hàng</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
+                <div class="step "> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Đã giao</span> </div>
                 {%else%}
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-spinner"></i> </span> <span class="text">Đang chờ xác nhận</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-check"></i> </span> <span class="text"> Đã xác nhận đơn hàng</span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
+                <div class="step active"> <span class="icon"> <i style="padding-top:3px; padding-right:25px;" class="fa fa-home"></i> </span> <span class="text">Đã giao</span> </div>
                 {%endif%}
             </div>
 

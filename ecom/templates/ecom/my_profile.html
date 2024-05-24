@@ -57,16 +57,16 @@
         </div>
         <div class="col-sm-4 col-md-4">
             <blockquote>
-                <p>Tên đăng nhập: {{request.user}}</p> <small><cite title="Source Title">Địa chỉ: {{customer.address}}  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+                <p>Tên đăng nhập: {{user.username}}</p> <small><cite title="Source Title">Địa chỉ: {{customer.address}}  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
             </blockquote>
-            <p><i class="glyphicon glyphicon-phone"></i>Contact: {{customer.mobile}}
+            <p><i class="glyphicon glyphicon-phone"></i>Số điện thoại: {{customer.mobile}}
             </p>
         </div>
 
 </div>
 <br>
 <div style="text-align: center;">
-  <a href="/edit-profile"><button class="btn btn-primary btn-lg" ><span>Edit Profile </span></button></a>
+  <a href="/edit-profile"><button class="btn btn-primary btn-lg" ><span>Chỉnh sửa </span></button></a>
 </div>
 <br><br><br><br><br><br>
 

@@ -3,7 +3,7 @@
 {% load static %}
 
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
   <style>
     @page {
       size: A4;
@@ -128,7 +128,7 @@
               <td>
 
 
-                Order Date: {{orderDate}}<br>
+                Ngày đặt: {{orderDate}}<br>
 
               </td>
             </tr>
@@ -164,7 +164,7 @@
             <tr>
               <td>
                 Hình sản phẩm :<br>
-                 <img src="{% static product_image.url %}" alt="Profile Pic" height="40px" width="40px" /><br><br>
+                 <img src="{% static productImage %}" alt="Profile Pic" height="140px" width="140px" /><br><br>
                 Tổng thu : <br>
                 {{productPrice}}.000 VND
               </td>
