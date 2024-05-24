@@ -41,7 +41,7 @@ class Purchaser(models.Model):
 
 class Invoice(models.Model):
     created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-    distributor = models.ForeignKey(Distributor, on_delete=models.CASCADE, null=True)
+    distributor = models.ForeignKey(Distributor, on_delete=models.CASCADE, null=True, related_name='distributor_invoices')
     purchaser = models.ForeignKey(Purchaser, on_delete=models.CASCADE, null=True)
 
     bill_of_lading_no = models.CharField(max_length=100, default=None, null=True)
@@ -61,7 +61,7 @@ class Invoice(models.Model):
 
 
 class DetailInvoice(models.Model):
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, null=True)
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, null=True, related_name='detail_invoices')
     name = models.CharField(max_length=100, null=True, default=None)
     unit = models.CharField(max_length=100, null=True, default=None)
     quantity = models.CharField(max_length=100, null=True, default=None)

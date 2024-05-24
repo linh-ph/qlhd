@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 from pathlib import Path
 import os
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "widget_tweaks"
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -87,8 +88,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         'NAME': 'qlhd_db',
         'USER': 'root',
-        'PASSWORD': '123',
-        'PORT': '3306',
+        'PASSWORD': '',
+        'PORT': '3308',
         'HOST': '127.0.0.1'
     }
 }

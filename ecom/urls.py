@@ -42,5 +42,5 @@ urlpatterns = [
     path('customer-address', customer_address_view, name='customer-address'),
     path('payment-success', payment_success_view, name='payment-success'),
     path('download-invoice/<int:orderID>/<int:productID>', download_invoice_view,name='download-invoice'),
-
+    path('scan-image/', scan_image_view, name='scan_image'),
 ]
