@@ -447,4 +447,4 @@ def edit_profile_view(request):
             user.save()
             customerForm.save()
             return HttpResponseRedirect('my-profile')
-    return render(request, 'ecom/edit_profile.html', context=mydict)=======
+    return render(request, 'ecom/edit_profile.html', context=mydict)
