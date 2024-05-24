@@ -79,7 +79,7 @@ body {
 }
 
 .el-wrapper:hover .add-to-cart {
-  left: 50%;
+  left: 60%;
 }
 
 .el-wrapper:hover .img {
@@ -437,7 +437,7 @@ img {
                 <a class="cart" href="{% url 'add-to-cart' p.id  %}">
                   <span class="price">{{p.price}}.000 VND</span>
                   <span class="add-to-cart">
-                    <span class="txt"><i class="fa fa-shopping-cart"></i> Add To Cart</span>
+                    <span class="txt"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</span>
                   </span>
                 </a>
               </div>
@@ -456,7 +456,7 @@ img {
   {% endfor %}
 </div>
 {%else%}
-<h3 style="text-align:center; color:#3E454C;">No Search Found</h3>
+<h3 style="text-align:center; color:#3E454C;">Không có sản phẩm nào được tìm thấy</h3>
 {%endif%}
 
 <script>

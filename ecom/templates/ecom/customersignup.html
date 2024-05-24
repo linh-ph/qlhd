@@ -153,17 +153,17 @@ a.socialIcon:hover,
             <div class="card">
                 <form class="box" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-                    <h1>Customer Sign Up</h1>
+                    <h1>Khách hàng đăng ký</h1>
                     
-                      {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
-                        {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
-                          {% render_field userForm.username class="form-control" placeholder="Username" %}
-                            {% render_field userForm.password class="form-control" placeholder="Password" %}
-                              {% render_field customerForm.address class="form-control" placeholder="Address" %}
-                                {% render_field customerForm.mobile class="form-control" placeholder="Contact" %}
-                                  {% render_field customerForm.profile_pic class="form-control" placeholder="Profile pic" %}
+                      {% render_field userForm.first_name class="form-control" placeholder="Họ" %}
+                        {% render_field userForm.last_name class="form-control" placeholder="Tên" %}
+                          {% render_field userForm.username class="form-control" placeholder="Tên đăng nhập" %}
+                            {% render_field userForm.password class="form-control" placeholder="Mật khẩu" %}
+                              {% render_field customerForm.address class="form-control" placeholder="Địa chỉ" %}
+                                {% render_field customerForm.mobile class="form-control" placeholder="Số điện thoại" %}
+                                  {% render_field customerForm.profile_pic class="form-control" placeholder="Ảnh đại diện" %}
                   
-                     <input type="submit" name="" value="Create">
+                     <input type="submit" name="" value="Tạo">
 
                 </form>
             </div>

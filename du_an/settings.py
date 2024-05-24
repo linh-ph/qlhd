@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
 import os
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "widget_tweaks"
 ]
 
 MIDDLEWARE = [
@@ -87,8 +87,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         'NAME': 'qlhd_db',
         'USER': 'root',
-        'PASSWORD': '',
-        'PORT': '3308',
+        'PASSWORD': '123',
+        'PORT': '3306',
         'HOST': '127.0.0.1'
     }
 }
@@ -134,8 +134,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 os.environ['TESSDATA_PREFIX'] = '/opt/homebrew/Cellar/tesseract/5.3.2_1/share/tessdata/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_URL = '/media/'
+MEDIA_URL = ''
 LOGIN_REDIRECT_URL = '/afterlogin'
+
+
+
+STATICFILES_DIRS=[STATIC_DIR,]
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

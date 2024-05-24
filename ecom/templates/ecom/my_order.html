@@ -161,7 +161,7 @@ p {
 </style>
 <br>
 <div class="container">
-    <header class="card-header" style="text-align:center; font-size: 21px"> My Orders / Tracking </header>
+    <header class="card-header" style="text-align:center; font-size: 21px"> Đơn hàng/theo dõi đơn hàng </header>
 
     {% for products,order in data %}
 
@@ -176,23 +176,23 @@ p {
                       <div class="aside"><img src="{% static product.product_image.url %}" class="img-sm border"></div>
                       <figcaption class="info align-self-center">
 
-                          <p class="title"><strong>Name : </strong>{{product.name}} <br> <strong>Description : </strong>{{product.description}} <br> <strong>Price : </strong>${{product.price}}</p> 
+                          <p class="title"><strong>Tên sản phẩm : </strong>{{product.name}} <br> <strong>Mô tả : </strong>{{product.description}} <br> <strong>Giá : </strong>${{product.price}}</p> 
 
                       </figcaption>
 
                   </figure>
                 </li>
                 <li class="col-md-4">
-                    <div class="col"> <strong>Shipment Address:</strong> <br> {{order.address}}</div>
+                    <div class="col"> <strong>Nơi giao:</strong> <br> {{order.address}}</div>
                 </li>
                 <li class="col-md-4">
-                    <div class="col"> <strong>Status:</strong> <br>
+                    <div class="col"> <strong>Trạng thái:</strong> <br>
                     
-                        {% if order.status == 'Pending'%}
+                        {% if order.status == 'Đang chờ'%}
                         <td> <span class="label label-info" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
-                        {% elif order.status == 'Delivered' %}
+                        {% elif order.status == 'Đã giao' %}
                         <td> <span class="label label-success" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
-                        {% elif order.status == 'Out for Delivery' %}
+                        {% elif order.status == 'Chưa giao được' %}
                         <td> <span class="label label-default" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>
                         {%else%}
                           <td> <span class="label label-primary" style="font-size: 12px; border-radius: 30px;">{{order.status}}</span></td>

@@ -21,7 +21,7 @@ class CustomerForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = models.Product
-        fields = ['name', 'price', 'description', 'product_image']
+        fields = ['name', 'price', 'description', 'product_image', 'unit', 'type']
 
 
 class InvoiceForm(forms.ModelForm):

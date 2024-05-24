@@ -12,7 +12,7 @@
 .pl-ziro { padding-left: 0px; }
 </style>
 <br><br>
-<center><i>This is a FAKE PAYMENT. Just for demo purpose</i></center>
+<center><i>Chỉ nhằm mục đích đồ án</i></center>
 <br><br>
 <div class="container" style="text-align:center; padding-left:300px;">
     <div class="row">
@@ -20,12 +20,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Payment Details
+                        Chi tiết thanh toán
                     </h3>
                     <div class="checkbox pull-right">
                         <label>
                             <input type="checkbox" />
-                            Remember
+                            Ghi nhớ
                         </label>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <form role="form" method="post">
                     <div class="form-group">
                         <label for="cardNumber">
-                            CARD NUMBER</label>
+                            Số thẻ</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx"
                                 required autofocus />
@@ -44,7 +44,7 @@
                         <div class="col-xs-4 col-md-4 pull-left">
                             <div class="form-group">
                                 <label for="cvCode">
-                                    MONTH</label>
+                                    Tháng</label>
                                 
                                     <input type="text" class="form-control" id="expityMonth" placeholder="MM - 02" required />
                                
@@ -54,7 +54,7 @@
                         <div class="col-xs-4 col-md-4">
                             <div class="form-group">
                                 <label for="expityMonth">
-                                    EXPIRY DATE</label>
+                                    Ngày hết hạn</label>
                                
                                 
                                
@@ -64,7 +64,7 @@
                         <div class="col-xs-4 col-md-4 pull-right">
                             <div class="form-group">
                                 <label for="cvCode">
-                                    CV CODE</label>
+                                    Mã CV</label>
                                 <input type="password" class="form-control" id="cvCode" placeholder="CV - xxx" required />
                             </div>
                         </div>
@@ -73,11 +73,11 @@
                 </div>
             </div>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right">{{total}}</span> Final Payment</a>
+                <li class="active"><a href="#"><span class="badge pull-right">{{total}}.000 VND</span> Thanh toán tổng đơn</a>
                 </li>
             </ul>
             <br/>
-            <a href="/payment-success" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+            <a href="/payment-success" class="btn btn-success btn-lg btn-block" role="button">Thanh toán</a>
         </div>
     </div>
 </div>
