@@ -60,30 +60,31 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Tên hóa đơn</label>
-              {% render_field invoiceForm.name class="form-control" placeholder="Tên hóa đơn" %}
+              <label for="">Số hóa đơn</label>
+              {% render_field invoiceForm.code_bill class="form-control" placeholder="Số hóa đo" %}
             </div>
             <div class="form-group">
-              <label for="">Địa chỉ</label>
-              {% render_field invoiceForm.address class="form-control" placeholder="Địa chỉ" %}
+              <label for="">Ngày nhập</label>
+              {% render_field invoiceForm.date_invoice class="form-control" placeholder="Ngày nhập" %}
             </div>
-
+{#            <div class="form-group">#}
+{#              <label for="">Distributor</label>#}
+{#              {% render_field distributor.name class="form-control" %}#}
+{#            </div>#}
           </div>
-
-
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Tax Code</label>
-              {% render_field invoiceForm.tax_code class="form-control" placeholder="9965" %}
+              <label for="">Tổng tiền</label>
+              {% render_field invoiceForm.total_money class="form-control" placeholder="Tổng tiền" %}
             </div>
-
-
             <div class="form-group">
-              <label for="">Số điện thoại</label>
-              {% render_field invoiceForm.phone class="form-control" placeholder="Số điện thoại" %}
+              <label for="">Tổng tiền thuế</label>
+              {% render_field invoiceForm.total_tax class="form-control" placeholder="Tổng tiền thuế" %}
             </div>
-
-
+            <div class="form-group">
+              <label for="">Thành tiền</label>
+              {% render_field invoiceForm.total class="form-control" placeholder="Thành tiền" %}
+            </div>
           </div>
         </div>
         <button type="submit" class="btnSubmit">Thêm</button>
