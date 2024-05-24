@@ -130,8 +130,38 @@ def admin_products_view(request):
 
 @login_required(login_url='adminlogin')
 def admin_invoices_view(request):
-    products = models.Product.objects.all()
-    return render(request, 'ecom/admin_invoices.html', {'products': products})
+    invoices = models.Invoice.objects.all()
+    return render(request, 'ecom/admin_invoices.html', {'invoices': invoices})
+
+
+@login_required(login_url='adminlogin')
+def scan_image_view(request):
+    return render(request, 'ecom/scan_image.html')
+
+
+@login_required(login_url='adminlogin')
+def admin_add_invoice_view(request):
+    invoice_form = forms.InvoiceForm()
+    if request.method == 'POST':
+        invoice_form = forms.InvoiceForm(request.POST, request.FILES)
+        print("invoice_form", invoice_form.is_valid())
+        if invoice_form.is_valid():
+            invoice_form.save()
+        return HttpResponseRedirect('admin-invoices')
+    distributor = forms.DistributorForm()
+    return render(request, 'ecom/admin_add_invoices.html', {'invoiceForm': invoice_form, 'distributor': distributor})
+
+
+@login_required(login_url='adminlogin')
+def update_invoice_view(request, pk):
+    invoice = models.Invoice.objects.get(id=pk)
+    invoiceForm = forms.InvoiceForm(instance=invoice)
+    if request.method == 'POST':
+        invoiceForm = forms.InvoiceForm(request.POST, request.FILES, instance=invoice)
+        if invoiceForm.is_valid():
+            invoiceForm.save()
+            return redirect('admin-invoices')
+    return render(request, 'ecom/admin_update_invoice.html', {'invoiceForm': invoiceForm})
 
 
 @login_required(login_url='adminlogin')
@@ -143,17 +173,6 @@ def admin_add_product_view(request):
             productForm.save()
         return HttpResponseRedirect('admin-products')
     return render(request, 'ecom/admin_add_products.html', {'productForm': productForm})
-
-
-@login_required(login_url='adminlogin')
-def admin_add_invoice_view(request):
-    invoiceForm = forms.InvoiceForm()
-    if request.method == 'POST':
-        invoiceForm = forms.InvoiceForm(request.POST, request.FILES)
-        if invoiceForm.is_valid():
-            invoiceForm.save()
-        return HttpResponseRedirect('admin-invoices')
-    return render(request, 'ecom/admin_add_invoices.html', {'invoiceForm': invoiceForm})
 
 
 @login_required(login_url='adminlogin')
@@ -173,18 +192,6 @@ def update_product_view(request, pk):
             productForm.save()
             return redirect('admin-products')
     return render(request, 'ecom/admin_update_product.html', {'productForm': productForm})
-
-
-@login_required(login_url='adminlogin')
-def update_invoice_view(request, pk):
-    invoice = models.Invoice.objects.get(id=pk)
-    invoiceForm = forms.InvoiceForm(instance=invoice)
-    if request.method == 'POST':
-        invoiceForm = forms.InvoiceForm(request.POST, request.FILES, instance=invoice)
-        if invoiceForm.is_valid():
-            invoiceForm.save()
-            return redirect('admin-invoices')
-    return render(request, 'ecom/admin_update_invoice.html', {'invoiceForm': invoiceForm})
 
 
 @login_required(login_url='adminlogin')

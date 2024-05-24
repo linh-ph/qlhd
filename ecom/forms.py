@@ -27,7 +27,7 @@ class ProductForm(forms.ModelForm):
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = models.Invoice
-        fields = ['id', 'code_bill', 'date_invoice', 'total_money', 'total_tax', 'total', 'status', 'distributor']
+        fields = '__all__'
 
 
 class AddressForm(forms.Form):
@@ -40,3 +40,12 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = models.Orders
         fields = ['status']
+
+
+class DistributorForm(forms.ModelForm):
+    name = forms.ModelChoiceField(queryset=models.Distributor.objects.all())
+
+    class Meta:
+        model = models.Distributor
+        fields = '__all__'
+

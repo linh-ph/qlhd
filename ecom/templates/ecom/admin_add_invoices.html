@@ -60,33 +60,34 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Tên hóa đơn</label>
-              {% render_field invoiceForm.name class="form-control" placeholder="Tên hóa đơn" %}
+              <label for="">Code bill</label>
+              {% render_field invoiceForm.code_bill class="form-control" placeholder="Code bill" %}
             </div>
             <div class="form-group">
-              <label for="">Địa chỉ</label>
-              {% render_field invoiceForm.address class="form-control" placeholder="Địa chỉ" %}
+              <label for="">Date invoice</label>
+              {% render_field invoiceForm.date_invoice class="form-control" placeholder="Date invoice" %}
             </div>
-
+{#            <div class="form-group">#}
+{#              <label for="">Distributor</label>#}
+{#              {% render_field distributor.name class="form-control" %}#}
+{#            </div>#}
           </div>
-
-
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Tax Code</label>
-              {% render_field invoiceForm.tax_code class="form-control" placeholder="9965" %}
+              <label for="">Total Money</label>
+              {% render_field invoiceForm.total_money class="form-control" placeholder="Total Money" %}
             </div>
-
-
             <div class="form-group">
-              <label for="">Số điện thoại</label>
-              {% render_field invoiceForm.phone class="form-control" placeholder="Số điện thoại" %}
+              <label for="">Tax</label>
+              {% render_field invoiceForm.total_tax class="form-control" placeholder="Tax" %}
             </div>
-
-
+            <div class="form-group">
+              <label for="">Total Price</label>
+              {% render_field invoiceForm.total class="form-control" placeholder="Total Price" %}
+            </div>
           </div>
         </div>
-        <button type="submit" class="btnSubmit">Thêm</button>
+        <button type="submit" class="btnSubmit">ADD</button>
       </div>
     </div>
   </div>
