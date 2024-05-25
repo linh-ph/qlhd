@@ -41,12 +41,13 @@ class Purchaser(models.Model):
 
 class Invoice(models.Model):
     created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-    distributor = models.ForeignKey(Distributor, on_delete=models.CASCADE, null=True, related_name='distributor_invoices')
+    distributor = models.ForeignKey(Distributor, on_delete=models.CASCADE, null=True,
+                                    related_name='distributor_invoices')
     purchaser = models.ForeignKey(Purchaser, on_delete=models.CASCADE, null=True)
 
     bill_of_lading_no = models.CharField(max_length=100, default=None, null=True)
     code_bill = models.CharField(max_length=100, default=None, null=True)
-    image_path = models.CharField(max_length=100, default=None, null=True)
+    image_path = models.ImageField(upload_to='invoices/', null=True, blank=True)
     form_of_payment = models.CharField(max_length=100, null=True, default=None)
     date_invoice = models.CharField(max_length=100, null=True, default=None)
     total_money = models.CharField(max_length=100, null=True, default=None)
@@ -81,11 +82,12 @@ class Product(models.Model):
     name = models.CharField(max_length=100, null=True, default=None)
     unit = models.CharField(max_length=100, null=True, default=None)
     type = models.CharField(max_length=100, null=True, default=None)
-    product_image = models.ImageField(upload_to='product_image/',null=True,blank=True)
+    product_image = models.ImageField(upload_to='product_image/', null=True, blank=True)
     price = models.PositiveIntegerField(null=True, default=None)
     description = models.CharField(max_length=100, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return str(self.id)
 
@@ -128,15 +130,6 @@ class OrdersDetail(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     price = models.PositiveIntegerField(null=True, default=None)
-
-    def __str__(self):
-        return self.name
-
-
-class Feedback(models.Model):
-    name = models.CharField(max_length=40, null=True)
-    feedback = models.CharField(max_length=500, null=True)
-    date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name

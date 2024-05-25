@@ -166,6 +166,13 @@ def update_invoice_view(request, pk):
 
 
 @login_required(login_url='adminlogin')
+def delete_invoice(request, pk):
+    invoice = models.Invoice.objects.get(id=pk)
+    invoice.delete()
+    return redirect('admin-invoices')
+
+
+@login_required(login_url='adminlogin')
 def admin_add_product_view(request):
     productForm = forms.ProductForm()
     if request.method == 'POST':

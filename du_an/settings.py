@@ -15,7 +15,6 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
@@ -34,7 +33,6 @@ IP_SITE = "http://127.0.0.1:8000"
 
 INSTALLED_APPS = [
     "qlhd",
-    "api",
     "ecom",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -62,7 +60,7 @@ WSGI_APPLICATION = "du_an.wsgi.application"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,14 +132,11 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 os.environ['TESSDATA_PREFIX'] = '/opt/homebrew/Cellar/tesseract/5.3.2_1/share/tessdata/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'ecom/static')
 MEDIA_URL = ''
 LOGIN_REDIRECT_URL = '/afterlogin'
 
-
-
-STATICFILES_DIRS=[STATIC_DIR,]
-
+STATICFILES_DIRS = [BASE_DIR / 'ecom' / 'static']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
