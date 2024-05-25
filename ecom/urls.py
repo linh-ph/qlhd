@@ -18,11 +18,13 @@ urlpatterns = [
     path('update-customer/<int:pk>', update_customer_view, name='update-customer'),
 
     path('admin-products', admin_products_view, name='admin-products'),
-    path('admin-invoices', admin_invoices_view, name='admin-invoices'),
     path('admin-add-product', admin_add_product_view, name='admin-add-product'),
-    path('admin-add-invoice', admin_add_invoice_view, name='admin-add-invoice'),
     path('delete-product/<int:pk>', delete_product_view, name='delete-product'),
     path('update-product/<int:pk>', update_product_view, name='update-product'),
+
+    path('admin-add-invoice', admin_add_invoice_view, name='admin-add-invoice'),
+    path('admin-invoices', admin_invoices_view, name='admin-invoices'),
+    path('delete-invoice/<int:pk>', delete_invoice, name='delete-invoice'),
     path('update-invoice/<int:pk>', update_invoice_view, name='update-invoice'),
 
     path('admin-view-booking', admin_view_booking_view, name='admin-view-booking'),
