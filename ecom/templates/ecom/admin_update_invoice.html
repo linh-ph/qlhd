@@ -1,94 +1,116 @@
 {% extends 'ecom/admin_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
+    {% load static %}
 
-<head>
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
+    <head>
+        <style media="screen">
+            a:link {
+                text-decoration: none;
+            }
 
-    .note {
-      text-align: center;
-      height: 80px;
-      background: #0F2027;  
-      background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);  
-      background: linear-gradient(to left, #2C5364, #203A43, #0F2027); 
+            .note {
+                text-align: center;
+                height: 80px;
+                background: #0F2027;
+                background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);
+                background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
 
-      color: #fff;
-      font-weight: bold;
-      line-height: 80px;
-    }
+                color: #fff;
+                font-weight: bold;
+                line-height: 80px;
+            }
 
-    .form-content {
-      padding: 5%;
-      border: 1px solid #ced4da;
-      margin-bottom: 2%;
-    }
+            .form-content {
+                padding: 5%;
+                border: 1px solid #ced4da;
+                margin-bottom: 2%;
+            }
+        </style>
 
-    .form-control {
-      border-radius: 1.5rem;
-    }
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <br><br><br><br><br><br>
 
-    .btnSubmit {
-      border: none;
-      border-radius: 1.5rem;
-      padding: 1%;
-      width: 20%;
-      cursor: pointer;
-      background: #009414;
-      color: #fff;
-    }
-
-    
-
-    .menu {
-      top: 50px;
-    }
-  </style>
-
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<br><br><br><br><br><br>
-
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="container register-form">
-    <div class="form">
-      <div class="note">
-        <p>Cập nhật sản phẩm</p>
-      </div>
-      <div class="form-content">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Tên sản phẩm</label>
-              {% render_field productForm.name class="form-control" placeholder="Tên sản phẩm" %}
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Chi tiết hóa đơn</p>
             </div>
-            <div class="form-group">
-              <label for="">Mô tả</label>
-              {% render_field productForm.description class="form-control" placeholder="Mô tả ngắn" %}
+            <div class="form-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Nhà cung cấp</label>
+                            {% render_field distributor.name class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Số hóa đơn</label>
+                            {% render_field invoice_form.code_bill class="form-control" placeholder="Số hóa đơn" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Ngày nhập</label>
+                            {% render_field invoice_form.date_invoice class="form-control" placeholder="Ngày nhập" %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Tiền hàng</label>
+                            {% render_field invoice_form.total class="form-control" placeholder="Tiền hàng" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tiền thuế</label>
+                            {% render_field invoice_form.total_tax class="form-control" placeholder="Tiền thuế" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tổng tiền</label>
+                            {% render_field invoice_form.total_money class="form-control" placeholder="Tổng tiền" %}
+                        </div>
+{#                        <div>#}
+{#                            <img class="review" src="{% static invoice_form.image_path %}" alt="" width="420"/>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="container">
+                            <table class="table table-hover table-bordered" id="dev-table">
+                                <thead>
+                                <tr>
+                                    <th>Tên Sản phẩm</th>
+                                    <th>Loại</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Tổng Giá</th>
+                                    <th>Thuế</th>
+                                    <th>Tổng tiền</th>
+                                </tr>
+                                </thead>
+                                {% for detail in detail_invoices %}
+                                    {% if detail %}
+                                        <tr>
+                                            <td>{% render_field detail.name class="form-control" %}</td>
+                                            <td>{% render_field detail.unit class="form-control" %}</td>
+                                            <td>{% render_field detail.quantity class="form-control" %}</td>
+                                            <td>{% render_field detail.price class="form-control" %}</td>
+                                            <td>{% render_field detail.total_price class="form-control" %}</td>
+                                            <td>{% render_field detail.tax_money class="form-control" %}</td>
+                                            <td>{% render_field detail.total class="form-control" %}</td>
+                                        </tr>
+                                    {% else %}
+                                        <br><br><br>
+                                        <h1>Không có sản phẩm !!</h1>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Giá sản phẩm</label>
-              {% render_field productForm.price class="form-control" placeholder="Giá" %}
-            </div>
-            <div class="form-group">
-              {% render_field productForm.product_image class="form-control" placeholder="Ảnh" %}
-            </div>
-
-
-          </div>
         </div>
-        <button type="submit" class="btnSubmit">Cập nhật</button>
-      </div>
     </div>
-  </div>
-</form>
-
 
 {% endblock content %}

@@ -3,100 +3,101 @@
 {% block content %}
 
 
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
+        <style media="screen">
+            a:link {
+                text-decoration: none;
+            }
 
-    h6 {
-      text-align: center;
-    }
+            h6 {
+                text-align: center;
+            }
 
-    .row {
-      margin: 100px;
-    }
+            .float {
+                position: fixed;
+                width: 70px;
+                height: 70px;
+                bottom: 60px;
+                right: 60px;
+                background-color: #3eb54d;
+                color: #FFF;
+                border-radius: 50px;
+                text-align: center;
+                box-shadow: 5px 5px 5px #505050;
+            }
 
-    .float{
-	position:fixed;
-	width:70px;
-	height:70px;
-	bottom:60px;
-	right:60px;
-	background-color:#3eb54d;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 5px 5px 5px #505050;
-}
+            .my-float {
+                margin-top: 22px;
+            }
 
-    .my-float{
-        margin-top:22px;
-    }
+            .scan-image-btn {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                position: fixed;
+                height: 70px;
+                bottom: 170px;
+                right: 60px;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
 
-    .scan-image-btn {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        position:fixed;
-        height:70px;
-        bottom:170px;
-        right:60px;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-  </style>
-</head>
+    <div class="container">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h6 class="panel-title">Danh sách hóa đơn</h6>
+            </div>
+            <table class="table table-hover table-bordered" id="dev-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Số hóa đơn</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày nhập</th>
+                    <th>Tổng tiền</th>
+                    <th>Số điện thoại</th>
+                </tr>
+                </thead>
 
-<div class="container">
-  <div class="panel panel-danger">
-    <div class="panel-heading">
-      <h6 class="panel-title">Danh sách hóa đơn</h6>
+
+                {% for p in invoices %}
+                    {% if p %}
+
+                        <tr>
+                            <td> {{ p.id }}</td>
+                            <td> {{ p.code_bill }}</td>
+                            <td> {{ p.distributor.name }}</td>
+                            <td>{{ p.date_invoice }}</td>
+                            <td>{{ p.total_money }}</td>
+                            <td>{{ p.distributor.phone }}</td>
+                            <td><a class="btn btn-primary btn-xs" href="{% url 'detail-invoice' p.id %}"><span
+                                    class="glyphicon glyphicon-edit"></span></a>
+                                <a class="btn btn-danger btn-xs" href="{% url 'delete-invoice' p.id %}"><span
+                                        class="glyphicon glyphicon-trash"></span></a></td>
+
+                        </tr>
+                    {% else %}
+                        <br><br><br>
+                        <h1>Không có hóa đơn!!</h1>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
     </div>
-    <table class="table table-hover table-bordered" id="dev-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Tên hóa đơn</th>
-          <th>Địa chỉ</th>
-          <th>Mã số thuế</th>
-          <th>Số điện thoại</th>
-        </tr>
-      </thead>
 
-
-      {% for p in invoices %}
-  {% if p %}
-
-      <tr>
-        <td> {{p.id}}</td>
-        <td> {{p.code_bill}}</td>
-        <td>{{p.date_invoice}}</td>
-        <td>{{p.total}}</td>
-        <td>{{p.distributor.name}}</td>
-        <td><a class="btn btn-primary btn-xs" href="{% url 'update-invoice' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a>
-          <a class="btn btn-danger btn-xs" href="{% url 'delete-invoice' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-
-      </tr>
-      {%else%}
-      <br><br><br>
-      <h1>Không có hóa đơn!!</h1>
-      {% endif %}
-      {% endfor %}
-    </table>
-  </div>
-</div>
-
-<a href="/admin-add-invoice" class="float">
-<i class="fa fa-plus my-float"></i>
-</a>
-<a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">Scan hóa đơn</a>
+    <a href="/admin-add-invoice" class="float">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+    <a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">Scan hóa đơn</a>
 {% endblock content %}

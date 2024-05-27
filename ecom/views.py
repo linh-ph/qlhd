@@ -1,18 +1,15 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from . import forms
 from qlhd import models
-from django.http import HttpResponseRedirect, HttpResponse
-from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from django.conf import settings
 from xhtml2pdf import pisa
-import io
 from django.template.loader import get_template
-from django.template import Context
 from django.http import HttpResponse
 from io import BytesIO
+from django.forms import formset_factory
 
 
 def home_view(request):
@@ -156,13 +153,27 @@ def admin_add_invoice_view(request):
 @login_required(login_url='adminlogin')
 def update_invoice_view(request, pk):
     invoice = models.Invoice.objects.get(id=pk)
-    invoiceForm = forms.InvoiceForm(instance=invoice)
-    if request.method == 'POST':
-        invoiceForm = forms.InvoiceForm(request.POST, request.FILES, instance=invoice)
-        if invoiceForm.is_valid():
-            invoiceForm.save()
-            return redirect('admin-invoices')
-    return render(request, 'ecom/admin_update_invoice.html', {'invoiceForm': invoiceForm})
+    distributor = invoice.distributor
+    detail_invoices = models.DetailInvoice.objects.filter(invoice=invoice)
+
+    invoice_form = forms.InvoiceForm(instance=invoice)
+    DetailInvoiceFormSet = formset_factory(forms.DetailInvoiceForm, extra=0)
+    initial_data = []
+    for detail_invoice in detail_invoices:
+        initial_data.append({
+            'name': detail_invoice.name,
+            'unit': detail_invoice.unit,
+            'quantity': detail_invoice.quantity,
+            'price': detail_invoice.price,
+            'total_price': detail_invoice.total_price,
+            'tax': detail_invoice.tax,
+            'tax_money': detail_invoice.tax_money,
+            'total': detail_invoice.total,
+        })
+
+    detail_invoice_instance = DetailInvoiceFormSet(initial=initial_data)
+    distributor_form = forms.DistributorForm(instance=distributor)
+    return render(request, 'ecom/admin_update_invoice.html', {'invoice_form': invoice_form, 'distributor': distributor_form, 'detail_invoices': detail_invoice_instance})
 
 
 @login_required(login_url='adminlogin')

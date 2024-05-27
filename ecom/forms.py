@@ -43,9 +43,12 @@ class OrderForm(forms.ModelForm):
 
 
 class DistributorForm(forms.ModelForm):
-    name = forms.ModelChoiceField(queryset=models.Distributor.objects.all())
-
     class Meta:
         model = models.Distributor
         fields = '__all__'
 
+
+class DetailInvoiceForm(forms.ModelForm):
+    class Meta:
+        model = models.DetailInvoice
+        fields = '__all__'

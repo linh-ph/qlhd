@@ -82,7 +82,7 @@ def do_scan(data, context, image, time_start):
         # Tạo ảnh lưu vào db
         now = datetime.datetime.now()
         name_img_i = str(now.time()).replace(":", "") + "_invoice.jpg"
-        data["url_result"] = "static/" + "invoices/" + name_img_i
+        data["url_result"] = "invoices/" + name_img_i
         new_image_dir = os.path.join(settings.MEDIA_ROOT, 'invoices')
         new_image_path = os.path.join(new_image_dir, name_img_i)
         os.makedirs(new_image_dir, exist_ok=True)

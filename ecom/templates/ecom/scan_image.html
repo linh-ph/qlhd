@@ -3,58 +3,59 @@
 {% block content %}
 
 
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
+        <style media="screen">
+            a:link {
+                text-decoration: none;
+            }
 
-    h6 {
-      text-align: center;
-    }
+            h6 {
+                text-align: center;
+            }
 
-    .row {
-      margin: 100px;
-    }
+            .row {
+                margin: 100px;
+            }
 
-    .float{
-	position:fixed;
-	width:70px;
-	height:70px;
-	bottom:60px;
-	right:60px;
-	background-color:#3eb54d;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 5px 5px 5px #505050;
-}
+            .float {
+                position: fixed;
+                width: 70px;
+                height: 70px;
+                bottom: 60px;
+                right: 60px;
+                background-color: #3eb54d;
+                color: #FFF;
+                border-radius: 50px;
+                text-align: center;
+                box-shadow: 5px 5px 5px #505050;
+            }
 
-.my-float{
-	margin-top:22px;
-}
-  </style>
-</head>
+            .my-float {
+                margin-top: 22px;
+            }
+        </style>
+    </head>
 
-<div class="container">
-  <div class="panel panel-danger">
-    <div class="panel-heading">
-      <h6 class="panel-title">Scan Image Page</h6>
-    </div>
     <div class="container">
-        <div>
-            <!-- Left side -->
-            {% include 'ecom/scan_image_left.html' %}
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h6 class="panel-title">Scan Hóa Đơn</h6>
+            </div>
+            <div class="container">
+                <div>
+                    <!-- Left side -->
+                    {% include 'ecom/scan_image_left.html' %}
 
-            <!-- Right side -->
-            {% include 'ecom/scan_image_right.html' %}
+                    <!-- Right side -->
+                    {% include 'ecom/scan_image_right.html' %}
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-</div>
 
 {% endblock content %}

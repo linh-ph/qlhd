@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin-add-invoice', admin_add_invoice_view, name='admin-add-invoice'),
     path('admin-invoices', admin_invoices_view, name='admin-invoices'),
     path('delete-invoice/<int:pk>', delete_invoice, name='delete-invoice'),
-    path('update-invoice/<int:pk>', update_invoice_view, name='update-invoice'),
+    path('detail-invoice/<int:pk>', update_invoice_view, name='detail-invoice'),
 
     path('admin-view-booking', admin_view_booking_view, name='admin-view-booking'),
     path('delete-order/<int:pk>', delete_order_view, name='delete-order'),
