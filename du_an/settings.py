@@ -86,7 +86,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         'NAME': 'qlhd_db',
         'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_bITW5SOcuuBYNJgmFaQ',
+        # 'PASSWORD': 'AVNS_bITW5SOcuuBYNJgmFaQ',
         'PORT': '11534',
         'HOST': 'tinh-mysql-tinhphamtrung04.h.aivencloud.com'
     }
@@ -143,6 +143,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'tinhphamtrung04@gmail.com'
-EMAIL_HOST_PASSWORD = 'Tinh@4299'
+EMAIL_HOST_PASSWORD = 'Tinh'
 
 EMAIL_RECEIVING_USER = ['tinhphamtrung00@gmail.com']
