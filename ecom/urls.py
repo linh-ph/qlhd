@@ -43,6 +43,6 @@ urlpatterns = [
     path('remove-from-cart/<int:pk>', remove_from_cart_view, name='remove-from-cart'),
     path('customer-address', customer_address_view, name='customer-address'),
     path('payment-success', payment_success_view, name='payment-success'),
-    path('download-invoice/<int:orderID>/<int:productID>', download_invoice_view,name='download-invoice'),
+    path('download-order/<int:orderID>/<int:productID>', download_order_view, name='download-order'),
     path('scan-image/', scan_image_view, name='scan_image'),
 ]

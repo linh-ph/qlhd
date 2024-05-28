@@ -67,6 +67,7 @@ def admin_dashboard_view(request):
     customercount = models.Customer.objects.all().count()
     productcount = models.Product.objects.all().count()
     ordercount = models.Orders.objects.all().count()
+    invoicecount = models.Invoice.objects.all().count()
 
     orders = models.Orders.objects.all()
     ordered_products = []
@@ -81,6 +82,7 @@ def admin_dashboard_view(request):
         'customercount': customercount,
         'productcount': productcount,
         'ordercount': ordercount,
+        'invoicecount': invoicecount,
         'data': zip(ordered_products, ordered_bys, orders),
     }
     return render(request, 'ecom/admin_dashboard.html', context=mydict)
@@ -173,7 +175,9 @@ def update_invoice_view(request, pk):
 
     detail_invoice_instance = DetailInvoiceFormSet(initial=initial_data)
     distributor_form = forms.DistributorForm(instance=distributor)
-    return render(request, 'ecom/admin_update_invoice.html', {'invoice_form': invoice_form, 'distributor': distributor_form, 'detail_invoices': detail_invoice_instance})
+    return render(request, 'ecom/admin_update_invoice.html',
+                  {'invoice_form': invoice_form, 'distributor': distributor_form,
+                   'detail_invoices': detail_invoice_instance})
 
 
 @login_required(login_url='adminlogin')
@@ -288,7 +292,7 @@ def add_to_cart_view(request, pk):
         response.set_cookie('product_ids', pk)
 
     product = models.Product.objects.get(id=pk)
-    messages.info(request, product.name + ' added to cart successfully!')
+    # messages.info(request, product.name + ' added to cart successfully!')
 
     return response
 
@@ -475,33 +479,34 @@ def edit_profile_view(request):
             return HttpResponseRedirect('my-profile')
     return render(request, 'ecom/edit_profile.html', context=mydict)
 
+
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
-def download_invoice_view(request,orderID,productID):
-    order=models.Orders.objects.get(id=orderID)
-    product=models.Product.objects.get(id=productID)
-    mydict={
-        'orderDate':order.order_date,
-        'customerName':order.customer,
-        'customerEmail':order.email,
-        'customerMobile':order.mobile,
-        'shipmentAddress':order.address,
-        'orderStatus':order.status,
-        'productName':product.name,
-        'productImage':product.product_image,
-        'productPrice':product.price,
-        'productDescription':product.description,
-
+def download_order_view(request, orderID, productID):
+    order = models.Orders.objects.get(id=orderID)
+    product = models.Product.objects.get(id=productID)
+    mydict = {
+        'orderDate': order.order_date,
+        'customerName': order.customer,
+        'customerEmail': order.email,
+        'customerMobile': order.mobile,
+        'shipmentAddress': order.address,
+        'orderStatus': order.status,
+        'productName': product.name,
+        'productImage': product.product_image,
+        'productPrice': product.price,
+        'productDescription': product.description,
 
     }
-    return render_to_pdf('ecom/download_invoice.html',mydict)
+    return render_to_pdf('ecom/download_invoice.html', mydict)
+
+
 def render_to_pdf(template_src, context_dict):
     template = get_template(template_src)
-    html  = template.render(context_dict)
+    html = template.render(context_dict)
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), dest=result, encoding='UTF-8')
 
     if not pdf.err:
         return HttpResponse(html)
     return None
-
