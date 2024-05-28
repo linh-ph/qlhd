@@ -429,7 +429,7 @@ def payment_success_view(request):
         address = request.COOKIES['address']
 
     for product in products:
-        models.Orders.objects.get_or_create(customer=customer, product=product, status='Chờ xác nhận', email=email,
+        models.Orders.objects.get_or_create(customer=customer, product=product, status='Đang chờ xác nhận', email=email,
                                             mobile=mobile, address=address)
 
     response = render(request, 'ecom/payment_success.html')
