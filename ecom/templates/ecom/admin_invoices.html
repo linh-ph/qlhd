@@ -39,9 +39,6 @@
                 background-color: #4CAF50;
                 border: none;
                 color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
                 position: fixed;
                 height: 70px;
                 bottom: 170px;
@@ -63,10 +60,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Số hóa đơn</th>
-                    <th>Địa chỉ</th>
+                    <th>Nhà cung cấp</th>
                     <th>Ngày nhập</th>
                     <th>Tổng tiền</th>
-                    <th>Số điện thoại</th>
                 </tr>
                 </thead>
 
@@ -80,7 +76,6 @@
                             <td> {{ p.distributor.name }}</td>
                             <td>{{ p.date_invoice }}</td>
                             <td>{{ p.total_money }}</td>
-                            <td>{{ p.distributor.phone }}</td>
                             <td><a class="btn btn-primary btn-xs" href="{% url 'detail-invoice' p.id %}"><span
                                     class="glyphicon glyphicon-edit"></span></a>
                                 <a class="btn btn-danger btn-xs" href="{% url 'delete-invoice' p.id %}"><span
@@ -96,8 +91,10 @@
         </div>
     </div>
 
-    <a href="/admin-add-invoice" class="float">
-        <i class="fa fa-plus my-float"></i>
+{#    <a href="/admin-add-invoice" class="float">#}
+{#        <i class="fa fa-plus my-float"></i>#}
+{#    </a>#}
+    <a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">
+        <i class="fa fa-plus my-float"></i> Scan hóa đơn
     </a>
-    <a href="{% url 'scan_image' %}" class="btn btn-primary scan-image-btn">Scan hóa đơn</a>
 {% endblock content %}
