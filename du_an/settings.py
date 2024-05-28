@@ -86,7 +86,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         'NAME': 'qlhd_db',
         'USER': 'avnadmin',
-        # 'PASSWORD': 'AVNS_bITW5SOcuuBYNJgmFaQ',
+        'PASSWORD': 'AVNS_bITW5SOcuuBYNJgmFaQ',
         'PORT': '11534',
         'HOST': 'tinh-mysql-tinhphamtrung04.h.aivencloud.com'
     }
