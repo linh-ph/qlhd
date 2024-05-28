@@ -112,10 +112,10 @@ class Customer(models.Model):
 
 class Orders(models.Model):
     STATUS = (
-        ('Đang chờ', 'Pending'),
-        ('Xác nhận đơn hàng', 'Order Confirmed'),
-        ('Đang giao hàng', 'Delivering'),
-        ('Đã giao hàng', 'Delivered'),
+        ('Đang chờ xác nhận','Đang chờ xác nhận'),
+        ('Xác nhận đơn hàng','Xác nhận đơn hàng'),
+        ('Đang giao hàng','Đang giao hàng'),
+        ('Đã giao hàng','Đã giao hàng'),
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)

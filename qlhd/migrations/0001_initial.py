@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=500, null=True)),
                 ('mobile', models.CharField(max_length=20, null=True)),
                 ('order_date', models.DateField(auto_now_add=True, null=True)),
-                ('status', models.CharField(choices=[('Đang chờ', 'Pending'), ('Xác nhận đơn hàng', 'Order Confirmed'), ('Đang giao hàng', 'Delivering'), ('Đã giao hàng', 'Delivered')], max_length=50, null=True)),
+                ('status', models.CharField(choices=[('Đang chờ xác nhận', 'Đang chờ xác nhận'), ('Xác nhận đơn hàng', 'Xác nhận đơn hàng'), ('Đang giao hàng', 'Đang giao hàng'), ('Đã giao hàng', 'Đã giao hàng')], max_length=50, null=True)),
                 ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='qlhd.customer')),
             ],
         ),
